@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>11.17🍉合集</title>
+  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/tcplayer.min.css" rel="stylesheet" />
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/libs/hls.min.0.13.2m.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.0/tcplayer.v4.5.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 30px;
+    }
+
+    .video-block {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      margin-bottom: 30px;
+    }
+
+    .video-title {
+      display: block;
+      background: #0094ff;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-align: left; /* 修改为靠左对齐 */
+    }
+
+    .video-title:hover {
+      background: #0079cc;
+    }
+
+    .tcplayer-container {
+      display: none;
+      width: 100%;
+      height: 580px;
+      max-width: 1080px;
+      margin: 20px auto;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .jump-btn {
+      display: none;
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #ff6a00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .jump-btn:hover {
+      background-color: #e85c00;
+    }
+  </style>
+</head>
+<body>
+  <h1>11.17🍉合集</h1>
+  <div id="content">加载中...</div>
+
+  <script>
+    const players = [];
+    let currentPlayingIndex = null;
+
+    function getLocalData() {
+      return {
+        data_mp4: [
+          { title: "吃🍉吃🐔，主人的任务 完全不理解在公共场合搞这种行为的人的脑回路！", url: "http://aod.cos.tx.xmcdn.com/storages/d69a-audiofreehighqps/29/B5/GAqh_aQM8JgjABwLwQQ3Rhfk.mp4" },
+          { title: "吃🍉小仙女给有钱人当🐕了", url: "http://aod.cos.tx.xmcdn.com/storages/882f-audiofreehighqps/97/13/GAqhp50M8JheAAgJmwQ3RjX_.mp4" },
+          { title: "吃🍉群友点了个上门服务看完逼就不搞了", url: "http://aod.cos.tx.xmcdn.com/storages/3147-audiofreehighqps/A7/D3/GAqhVp8M8JikACAAAAQ3Rlea.mp4" },
+          { title: "吃🍉100一pao还嫌便宜了.", url: "http://aod.cos.tx.xmcdn.com/storages/f6d5-audiofreehighqps/35/1A/GKwRIJIM8JkLACAAAAQ3RnUZ.mp4" },
+          { title: "吃🍉酒吧喝醉捡尸了 ", url: "http://aod.cos.tx.xmcdn.com/storages/baec-audiofreehighqps/F5/BC/GAqhVp8M8JmBACAAAAQ3RqD4.mp4" },
+          { title: "吃🍉卫生巾 护垫 都快摇出来了", url: "http://aod.cos.tx.xmcdn.com/storages/269a-audiofreehighqps/76/EB/GAqhp50M8JogAA7OlAQ3Rtkq.mp4" },
+          { title: "吃🍉这是真喝醉了，都开始抠兄弟了～ #醉酒 请不不要到处扣扣 扣错人 ！ ", url: "http://aod.cos.tx.xmcdn.com/storages/78b1-audiofreehighqps/01/6B/GKwRIDoM8JpqACAAAAQ3RvF0.mp4" },
+          { title: "吃🍉真会玩 #夜店 #气氛组 #吃瓜 #发骚", url: "http://aod.cos.tx.xmcdn.com/storages/e633-audiofreehighqps/82/89/GAqhp50M8JxoACAAAAQ3R5lL.mp4" },
+          { title: "吃🍉😨钓鱼佬钓到 尸体 了", url: "http://aod.cos.tx.xmcdn.com/storages/d676-audiofreehighqps/AB/D4/GKwRIJEM8Jy4ACAAAAQ3R7Sc.mp4" },
+          { title: "吃🍉精神小妹打架 有一个最刁，还拿甩棍了！", url: "http://aod.cos.tx.xmcdn.com/storages/59b0-audiofreehighqps/5C/E9/GKwRIasM8J2iACAAAAQ3SASv.mp4" },
+          { title: "吃🍉嚣张要代价的，保安当久了还真以为自己是警察", url: "http://aod.cos.tx.xmcdn.com/storages/a955-audiofreehighqps/93/A0/GAqhp50M8J3jAAdHagQ3SBzs.mp4" },
+          { title: "吃🍉今日快手抖音闪现合集 ", url: "http://aod.cos.tx.xmcdn.com/storages/6f3b-audiofreehighqps/89/46/GAqhqKwM8J0yACAAAAQ3R9kx.mp4" },
+        ],
+        btn_text: '加入吃瓜微信群',
+        btn_link: 'https://mp.weixin.qq.com/s/uGSBdlVlSHMpXLkxdOlHOA',
+        title: '转发＝更新的动力'
+      };
+    }
+
+    async function loadVideos() {
+      const data = getLocalData();
+      document.title = data.title;
+
+      const container = document.getElementById('content');
+      container.innerHTML = '';
+
+      data.data_mp4.forEach((item, index) => {
+        const videoId = "tcplayer-container-" + index;
+        const block = document.createElement('div');
+        block.className = 'video-block';
+        block.innerHTML = `
+          <span class="video-title" data-index="${index}">${index + 1}. ${item.title}</span>
+          <video id="${videoId}" class="tcplayer-container" preload="auto" playsinline webkit-playsinline></video>
+          <button class="jump-btn">${data.btn_text}</button>
+        `;
+        container.appendChild(block);
+
+        const jumpBtn = block.querySelector('.jump-btn');
+        jumpBtn.onclick = () => window.location.href = data.btn_link;
+
+        setTimeout(() => {
+          const player = TCPlayer(videoId, { reportable: false });
+          player.src(item.url);
+          player.pause();
+          players[index] = player;
+        }, 0);
+      });
+
+      document.querySelectorAll('.video-title').forEach(titleElem => {
+        titleElem.addEventListener('click', function () {
+          const index = parseInt(this.getAttribute('data-index'));
+          if (currentPlayingIndex === index) return;
+
+          if (currentPlayingIndex !== null) {
+            const prevVideoElem = document.getElementById("tcplayer-container-" + currentPlayingIndex);
+            if (prevVideoElem) prevVideoElem.style.display = 'none';
+            const prevBlock = prevVideoElem?.parentElement;
+            prevBlock?.querySelector('.jump-btn')?.style.setProperty('display', 'none');
+            players[currentPlayingIndex]?.pause();
+          }
+
+          const currentVideoElem = document.getElementById("tcplayer-container-" + index);
+          currentVideoElem.style.display = 'block';
+          const currentBlock = this.parentElement;
+          currentBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          currentBlock.querySelector('.jump-btn').style.display = 'block';
+          players[index]?.play();
+          currentPlayingIndex = index;
+        });
+      });
+    }
+
+    loadVideos();
+  </script>
+</body>
+</html>
