@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+  <title>6.16合集</title>
+  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/tcplayer.min.css" rel="stylesheet" />
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/libs/hls.min.0.13.2m.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.0/tcplayer.v4.5.0.min.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #f0f4ff, #fdfbfb);
+      padding: 30px;
+      margin: 0;
+      color: #333;
+    }
+
+    #content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .content-title {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .video-block {
+      margin-bottom: 40px;
+      padding: 20px;
+      background: #ffffffdd;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-block:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    }
+
+    .video-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      padding: 12px 16px;
+      background: #e0f0ff;
+      color: #0077cc;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .video-title:hover {
+      background: #0077cc;
+      color: #fff;
+    }
+
+    .tcplayer-container {
+      display: none;
+      width: 100%;
+      max-width: 100%;
+      height: 420px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .jump-btn {
+      display: none;
+      margin: 20px auto 0;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #ff835c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      min-width: 220px;
+    }
+
+    .jump-btn:hover {
+      background-color: #e06647;
+    }
+  </style>
+</head>
+<body>
+  <div class="content-title">11.22合集</div>
+  <div id="content">加载中...</div>
+
+  <script>
+    const players = [];
+    let currentPlayingIndex = null;
+
+    function getLocalData() {
+      return {
+        data_mp4: [
+          { title: "吃🍉海南三亚，还有救吗😱 撞车了 抽搐了", url: "http://aod.cos.tx.xmcdn.com/storages/38b4-audiofreehighqps/6C/29/GKwRIW4MJZiLACAAAAPJpcKg.mp4" },
+          { title: "吃🍉口活👅不错", url: "http://aod.cos.tx.xmcdn.com/storages/1b20-audiofreehighqps/1E/BA/GKwRIDoMJZlWAA87JAPJploj.mp4" },
+          { title: "吃🍉兄弟们 怎么办？在线等😰", url: "http://aod.cos.tx.xmcdn.com/storages/1b06-audiofreehighqps/05/3B/GKwRIJEMJZoZAAz7yAPJpxSS.mp4" },
+          { title: "吃🍉肥水不流外人田 #随地大小便 😑小仙女", url: "http://aod.cos.tx.xmcdn.com/storages/8df5-audiofreehighqps/A8/23/GAqh9sAMJZrgAB4Y9APJqCKa.mp4" },
+          { title: "吃🍉五名尼日利亚人偷中国人东西被保安抓现行", url: "http://aod.cos.tx.xmcdn.com/storages/b1ab-audiofreehighqps/A5/18/GAqh1QQMJZuGACAAAAPJqKug.mp4" },
+          { title: "吃🍉大爷大妈吵架踢🐔🎱", url: "http://aod.cos.tx.xmcdn.com/storages/0415-audiofreehighqps/61/F7/GKwRIJEMJZwgACAAAAPJqThx.mp4" },
+          { title: "吃🍉恋足 小咖 使劲唑 #舔脚", url: "http://aod.cos.tx.xmcdn.com/storages/b3ce-audiofreehighqps/CE/EF/GAqhQ6cMJZzCABieAgPJqeI1.mp4" },
+          { title: "吃🍉这是脑子进水了？放水？", url: "http://aod.cos.tx.xmcdn.com/storages/1db3-audiofreehighqps/54/51/GKwRIW4MJZ1MABZ-LAPJqkVx.mp4" },
+          { title: "吃🍉#字母圈 #打屁股 户外调教", url: "http://aod.cos.tx.xmcdn.com/storages/9006-audiofreehighqps/00/B1/GAqh1QQMJZ4FACAAAAPJqsWx.mp4" },
+          { title: "吃🍉洗车福利 谁家娇妻这么勤快？", url: "http://aod.cos.tx.xmcdn.com/storages/8f06-audiofreehighqps/F4/A2/GAqhQ6cMJZ6WAAYuMgPJq1Yu.mp4" },
+          { title: "吃🍉按摩椅的效果真好", url: "http://aod.cos.tx.xmcdn.com/storages/c450-audiofreehighqps/07/22/GKwRIRwMJZ9SACAAAAPJq92B.mp4" },
+          { title: "吃🍉什么好地方？", url: "http://aod.cos.tx.xmcdn.com/storages/196a-audiofreehighqps/5A/74/GAqhntAMJaBhACAAAAPJrMFG.mp4" }
+        ],
+        btn_text: '👉 加入吃瓜微信群',
+        btn_link: 'https://mp.weixin.qq.com/s/Asz8BVagynKMiwhzM2A__Q',
+        title: '6.16合集'
+      };
+    }
+
+    async function loadVideos() {
+      const data = getLocalData();
+      const container = document.getElementById('content');
+      container.innerHTML = '';
+
+      data.data_mp4.forEach((item, index) => {
+        const videoId = "tcplayer-container-" + index;
+        const block = document.createElement('div');
+        block.className = 'video-block';
+        block.innerHTML = `
+          <span class="video-title" data-index="${index}">${index + 1}. ${item.title}</span>
+          <video id="${videoId}" class="tcplayer-container" preload="auto" playsinline webkit-playsinline></video>
+          <button class="jump-btn">${data.btn_text}</button>
+        `;
+        container.appendChild(block);
+
+        const jumpBtn = block.querySelector('.jump-btn');
+        jumpBtn.onclick = () => window.location.href = data.btn_link;
+
+        setTimeout(() => {
+          const player = TCPlayer(videoId, { reportable: false });
+          player.src(item.url);
+          player.pause();
+          players[index] = player;
+        }, 0);
+      });
+
+      const titleElems = document.querySelectorAll('.video-title');
+      titleElems.forEach(titleElem => {
+        titleElem.addEventListener('click', function () {
+          const index = parseInt(this.getAttribute('data-index'));
+          if (currentPlayingIndex === index) return;
+
+          if (currentPlayingIndex !== null) {
+            const prevVideoElem = document.getElementById("tcplayer-container-" + currentPlayingIndex);
+            if (prevVideoElem) prevVideoElem.style.display = 'none';
+
+            const prevBlock = prevVideoElem ? prevVideoElem.parentElement : null;
+            if (prevBlock) {
+              const prevBtn = prevBlock.querySelector('.jump-btn');
+              if (prevBtn) prevBtn.style.display = 'none';
+            }
+
+            if (players[currentPlayingIndex]) {
+              players[currentPlayingIndex].pause();
+            }
+          }
+
+          const currentVideoElem = document.getElementById("tcplayer-container-" + index);
+          if (currentVideoElem) currentVideoElem.style.display = 'block';
+
+          const currentBlock = this.parentElement;
+          currentBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          const jumpBtn = currentBlock.querySelector('.jump-btn');
+          if (jumpBtn) jumpBtn.style.display = 'block';
+
+          if (players[index]) players[index].play();
+          currentPlayingIndex = index;
+        });
+      });
+    }
+
+    async function init() {
+      await loadVideos();
+    }
+
+    init();
+  </script>
+</body>
+</html>
+
